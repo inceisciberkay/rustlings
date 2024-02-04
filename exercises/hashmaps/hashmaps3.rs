@@ -39,24 +39,26 @@ fn build_scores_table(results: String) -> HashMap<String, Team> {
         // goals scored by team_2 will be the number of goals conceded by
         // team_1.
 
-        if scores.contains_key(&team_1_name) {
-            scores.entry(team_1_name).and_modify(|team| {
+        scores
+            .entry(team_1_name)
+            .and_modify(|team| {
                 team.goals_scored += team_1_score;
                 team.goals_conceded += team_2_score;
+            })
+            .or_insert(Team {
+                goals_scored: team_1_score,
+                goals_conceded: team_2_score,
             });
-        } else {
-            scores.insert(team_1_name, Team { goals_scored: team_1_score, goals_conceded: team_2_score });
-        }
-
-        if scores.contains_key(&team_2_name) {
-            scores.entry(team_2_name).and_modify(|team| {
+        scores
+            .entry(team_2_name)
+            .and_modify(|team| {
                 team.goals_scored += team_2_score;
                 team.goals_conceded += team_1_score;
+            })
+            .or_insert(Team {
+                goals_scored: team_2_score,
+                goals_conceded: team_1_score,
             });
-        } else {
-            scores.insert(team_2_name, Team { goals_scored: team_2_score, goals_conceded: team_1_score });
-        }
-
     }
     scores
 }
