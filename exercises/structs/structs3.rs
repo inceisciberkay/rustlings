@@ -32,7 +32,6 @@ impl Package {
     fn is_international(&self) -> bool {
         // Something goes here...
         return !self.sender_country.eq(&self.recipient_country);
-        
     }
 
     fn get_fees(&self, cents_per_gram: u32) -> u32 {
