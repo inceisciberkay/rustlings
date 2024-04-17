@@ -7,7 +7,7 @@ enum Message {
     ChangeColor(u8, u8, u8),
     Echo(String),
     Move(Point),
-    Quit
+    Quit,
 }
 
 struct Point {
